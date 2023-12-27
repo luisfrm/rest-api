@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prueba</title>
+  <style>
+    article {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    article img {
+      max-width: 100%;
+      width: 320px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <main></main>
+  <script type="module">
+    fetch('http://localhost:3000/movies')
+      .then(response => response.json())
+      .then(data => {
+        const html = data.map(movie => {
+          return `
+            <article data-id="${movie.id}">
+              <h2>${movie.title}</h2>
+              <img src="${movie.poster}" alt="${movie.title}" />
+              <p>${movie.director}</p>
+              <p>${movie.year}</p>
+              <button>Eliminar</button>
+            </article>
+          `
+        }).join('');
+
+        document.querySelector('main').innerHTML = html;
+
+        document.querySelectorAll('article').forEach(article => {
+          article.querySelector('button').addEventListener('click', () => {
+            const id = article.dataset.id;
+            fetch(`http://localhost:3000/movies/${id}`, {
+              method: 'DELETE'
+            })
+              .then(response => response.json())
+              .then(data => {
+                // if (data.success) {
+                  article.remove();
+                // }
+              });
+          });
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+### Get moviees
+GET http://localhost:3000/movies
+
+### Get movie by wrong id
+GET http://localhost:3000/movies/1
+
+### Get movie by correct id
+GET http://localhost:3000/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
+
+### Get movie by genre
+GET http://localhost:3000/movies?genre=Drama
+
+### Get movie by genre and year
+GET http://localhost:3000/movies?genre=Action&year=2008
+
+### Get movie by title
+GET http://localhost:3000/movies?title=the d
+
+### Create new movie
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "title": "Forrest Gump",
+  "year": 1994,
+  "director": "Robert Zemeckis",
+  "duration": 142,
+  "poster": "https://i.ebayimg.com/images/g/qR8AAOSwkvRZzuMD/s-l1600.jpg",
+  "genre": ["Drama", "Romance"],
+  "rate": 8.8
+}
+
+### Update a movie
+PATCH http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+Content-Type: application/json
+
+{
+  "title":"asd",
+  "rate": 10,
+  "id": "asdasd"
+}
